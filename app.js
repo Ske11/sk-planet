@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const bodyParse = require('body-parser')
 const session = require('express-session')
-const MongoStore = require('connect-mongo')(session)
+const MongoStore = require('connect-mongo').default
 const router = require('./server/router')
 const app = express()
 
@@ -24,8 +24,8 @@ app.use(session({
     secure: true,
     maxAge: 2592000000
   },
-  store: new MongoStore({
-    url: 'mongodb://localhost:27017/blog'
+  store: MongoStore.create({
+    mongoUrl: 'mongodb://localhost:27017/blog'
   })
 }))
 
